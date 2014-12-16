@@ -1,16 +1,19 @@
 package nl.paardustaart.visualisationprototype;
+
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
+import java.awt.Point;
+import java.util.ArrayList;
 
 
 public class GraphSubject implements Drawable {
 	
 	private int x, y;
+	private int width, height;
 	private double widthMultiplier, heightMultiplier;
 	private String displayText;
+	
+	private ArrayList<GraphObject> objects;
 	
 	public GraphSubject(int x, int y, String text) {
 		this.x = x;
@@ -20,18 +23,33 @@ public class GraphSubject implements Drawable {
 		heightMultiplier = 4.0;
 		
 		displayText = text;
+		
+		width = (int)(FontCalculator.getInstance().getWidth(displayText) * widthMultiplier);
+		height = (int)(FontCalculator.getInstance().getHeight(displayText) * heightMultiplier);
+		
+		objects = new ArrayList<GraphObject>();
+	}
+	
+	public void addGraphObject(int xDistance, int yDistance, String predicateText, String objectText) {
+		GraphObject currentObject = new GraphObject(x + xDistance, y + yDistance, predicateText, objectText, this);
+		objects.add(currentObject);
+	}
+	
+	public Point getCenter() {
+		return new Point(x + width / 2, y + height / 2);
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		FontMetrics fm = g.getFontMetrics();
-		Rectangle2D rect = fm.getStringBounds(displayText, g);
+		for(GraphObject object : objects) {
+			object.draw(g);
+		}
 		
 		g.setColor(Color.BLACK);
-		g.fillOval(x, y, (int)(rect.getWidth() * widthMultiplier), (int)(rect.getHeight() * heightMultiplier));
+		g.fillOval(x, y, width, height);
 		g.setColor(Color.WHITE);
-		g.drawString(displayText, x + (int)(rect.getWidth() * widthMultiplier / 2 - (rect.getWidth() / 2)), y + (int)(rect.getHeight() * heightMultiplier / 2 + (rect.getHeight() / 3)));
+		g.drawString(displayText, x + (int)(width / 2 - ((FontCalculator.getInstance().getWidth(displayText) / 2))), y + (int)(height / 2 + (FontCalculator.getInstance().getHeight(displayText) / 2)));
+		
 	}
 
 }

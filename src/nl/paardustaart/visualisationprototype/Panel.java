@@ -1,7 +1,9 @@
 package nl.paardustaart.visualisationprototype;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -10,8 +12,8 @@ import javax.swing.JPanel;
 
 public class Panel extends JPanel {
 	
-	public static final int WIDTH = 640;
-	public static final int HEIGHT = 480;
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 720;
 
 	private static final long serialVersionUID = 1L;
 	
@@ -19,26 +21,30 @@ public class Panel extends JPanel {
 	
 	public Panel() {
 		shapes = new ArrayList<Drawable>();
-		shapes.add(new GraphSubject(100, 100, "Supersmooth Subject"));
-		shapes.add(new GraphObject(300, 200, "Overpowered Object"));
-		shapes.add(new GraphBlank(100, 250, "BLANK"));
-		shapes.add(new GraphPredicate(200, 300, 550, 350, "lel"));
+		
+		GraphSubject subject = new GraphSubject(WIDTH / 2 - 50, HEIGHT / 2 - 50, "Smooth criminal");
+		subject.addGraphObject(100, 100, "Predicate", "SuperObj");
+		subject.addGraphObject(-200, -100, "Pred", "Obj");
+		
+		shapes.add(subject);
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect(0, 0, WIDTH, HEIGHT);
 		for(Drawable d : shapes) {
-			d.draw((Graphics2D)g);
+			d.draw(g2d);
 		}
 	}
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Drawing test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(640, 480);
+		frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(false);
 		frame.add(new Panel());
 		frame.setLocationRelativeTo(null);

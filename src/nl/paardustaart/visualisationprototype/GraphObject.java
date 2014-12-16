@@ -1,37 +1,57 @@
 package nl.paardustaart.visualisationprototype;
+
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
+import java.awt.Point;
 
 
 public class GraphObject implements Drawable {
 	
 	private int x, y;
+	private int width, height;
 	private double widthMultiplier, heightMultiplier;
-	private String displayText;
+	private String predicateText, displayText;
 	
-	public GraphObject(int x, int y, String text) {
+	private GraphSubject subject;
+	
+	public GraphObject(int x, int y, String predicate, String display, GraphSubject subject) {
 		this.x = x;
 		this.y = y;
 		
-		widthMultiplier = 1.5;
-		heightMultiplier = 4.0;
+		this.subject = subject;
 		
-		displayText = text;
+		widthMultiplier = 1.5;
+		heightMultiplier = 3.0;
+		
+		predicateText = predicate;
+		displayText = display;
+		
+		width = (int)(FontCalculator.getInstance().getWidth(displayText) * widthMultiplier);
+		height = (int)(FontCalculator.getInstance().getHeight(displayText) * heightMultiplier);
+		
+	}
+	
+	public Point getCenter() {
+		return new Point(x + width / 2, y + height / 2);
+	}
+	
+	public Point getLineCenter() {
+		Point p1 = subject.getCenter();
+		Point p2 = this.getCenter();
+		return new Point((p1.x + p2.x)/2, (p1.y + p2.y)/2);
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
-		FontMetrics fm = g.getFontMetrics();
-		Rectangle2D rect = fm.getStringBounds(displayText, g);
 		
 		g.setColor(Color.BLACK);
-		g.fillRect(x, y, (int)(rect.getWidth() * widthMultiplier), (int)(rect.getHeight() * heightMultiplier));
+		g.drawLine(subject.getCenter().x, subject.getCenter().y, x + width / 2, y + height / 2);
+		
+		g.drawString(predicateText, getLineCenter().x, getLineCenter().y);
+		
+		g.setColor(Color.BLACK);
+		g.fillRect(x, y, width, height);
 		g.setColor(Color.WHITE);
-		g.drawString(displayText, x + (int)(rect.getWidth() * widthMultiplier / 2 - (rect.getWidth() / 2)), y + (int)(rect.getHeight() * heightMultiplier / 2 + (rect.getHeight() / 3)));
+		g.drawString(displayText, x + (int)(width / 2 - ((FontCalculator.getInstance().getWidth(displayText) / 2))), y + (int)(height / 2 + (FontCalculator.getInstance().getHeight(displayText) / 2)));
 	}
 	
 }
