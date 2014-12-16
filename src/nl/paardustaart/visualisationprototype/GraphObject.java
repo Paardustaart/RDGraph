@@ -20,8 +20,8 @@ public class GraphObject implements Drawable {
 		
 		this.subject = subject;
 		
-		widthMultiplier = 1.5;
-		heightMultiplier = 3.0;
+		widthMultiplier = 2;
+		heightMultiplier = 2.5;
 		
 		predicateText = predicate;
 		displayText = display;
