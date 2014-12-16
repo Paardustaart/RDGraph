@@ -46,7 +46,11 @@ public class GraphObject implements Drawable {
 		g.setColor(Color.BLACK);
 		g.drawLine(subject.getCenter().x, subject.getCenter().y, x + width / 2, y + height / 2);
 		
-		g.drawString(predicateText, getLineCenter().x, getLineCenter().y);
+		g.setColor(Color.WHITE);
+		g.fillRect(getLineCenter().x - ((int)FontCalculator.getInstance().getWidth(predicateText) / 2), getLineCenter().y - (int)FontCalculator.getInstance().getHeight(predicateText) +3, (int)FontCalculator.getInstance().getWidth(predicateText), (int)FontCalculator.getInstance().getHeight(predicateText));
+		
+		g.setColor(Color.BLACK);
+		g.drawString(predicateText, getLineCenter().x - ((int)FontCalculator.getInstance().getWidth(predicateText) / 2), getLineCenter().y);
 		
 		g.setColor(Color.BLACK);
 		g.fillRect(x, y, width, height);
