@@ -2,9 +2,6 @@ package nl.paardustaart.rdgraph;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -14,7 +11,6 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
-		Logger.getRootLogger().setLevel(Level.OFF);
 		
 		Model model = createCustomModel(); // load a custom RDF model
 		
