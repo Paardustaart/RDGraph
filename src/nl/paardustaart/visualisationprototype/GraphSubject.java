@@ -35,6 +35,21 @@ public class GraphSubject implements Drawable {
 		objects.add(currentObject);
 	}
 	
+	public void addGraphObjects(String[][] objects) {
+		
+		int[][] location = {{0, -200}, {150, -150}, {250, 0}, {150, 150}, {0, 200}, {-150, 150}, {-250, 0}, {-150, -150}};
+		
+		int loc = 0;
+		int multiplier = 8 / objects.length;
+		
+		for(int i = 0; i < objects.length; i++) {
+			int x = location[loc][0];
+			int y = location[loc][1];
+			this.addGraphObject(x, y, objects[i][0], objects[i][1]);
+			loc += multiplier;
+		}
+	}
+	
 	public Point getCenter() {
 		return new Point(x + width / 2, y + height / 2);
 	}

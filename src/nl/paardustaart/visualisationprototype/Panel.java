@@ -23,10 +23,12 @@ public class Panel extends JPanel {
 		shapes = new ArrayList<Drawable>();
 		
 		GraphSubject subject = new GraphSubject(WIDTH / 3, HEIGHT / 3, "Super Subject");
-		subject.addGraphObject(-200, 200, "Predicate", "Object");
-		subject.addGraphObject(0, 200, "Predicate", "Object");
-		subject.addGraphObject(200, 200, "Predicate", "Object");
-		subject.addGraphObject(400, 200, "Predicate", "Object");
+		//subject.addGraphObject(-200, 200, "Predicate", "Object");
+		//subject.addGraphObject(0, 200, "Predicate", "Object");
+		//subject.addGraphObject(200, 200, "Predicate", "Object");
+		//subject.addGraphObject(400, 200, "Predicate", "Object");
+		String[][] predObj = {{"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}};
+		subject.addGraphObjects(predObj);
 		
 		shapes.add(subject);
 	}
