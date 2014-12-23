@@ -1,6 +1,7 @@
 package nl.paardustaart.visualisationprototype;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -22,7 +23,7 @@ public class Panel extends JPanel {
 	public Panel() {
 		shapes = new ArrayList<Drawable>();
 		
-		GraphSubject subject = new GraphSubject(WIDTH / 3, HEIGHT / 3, "Super Subject");
+		GraphSubject subject = new GraphSubject(WIDTH, HEIGHT, "Super Subject");
 		//subject.addGraphObject(-200, 200, "Predicate", "Object");
 		//subject.addGraphObject(0, 200, "Predicate", "Object");
 		//subject.addGraphObject(200, 200, "Predicate", "Object");
@@ -31,6 +32,11 @@ public class Panel extends JPanel {
 		subject.addGraphObjects(predObj);
 		
 		shapes.add(subject);
+	}
+	
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(1280, 720);
 	}
 	
 	@Override
@@ -48,11 +54,12 @@ public class Panel extends JPanel {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Drawing test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(WIDTH, HEIGHT);
-		frame.setResizable(false);
 		frame.add(new Panel());
+		frame.pack();
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.setSize(1285, 748);
 	}
 
 }

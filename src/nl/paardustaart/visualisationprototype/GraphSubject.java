@@ -16,8 +16,6 @@ public class GraphSubject implements Drawable {
 	private ArrayList<GraphObject> objects;
 	
 	public GraphSubject(int x, int y, String text) {
-		this.x = x;
-		this.y = y;
 		
 		widthMultiplier = 1.5;
 		heightMultiplier = 4.0;
@@ -28,6 +26,9 @@ public class GraphSubject implements Drawable {
 		height = (int)(FontCalculator.getInstance().getHeight(displayText) * heightMultiplier);
 		
 		objects = new ArrayList<GraphObject>();
+		
+		this.x = (x / 2) - (width / 2);
+		this.y = (y / 2) - (height / 2);
 	}
 	
 	public void addGraphObject(int xDistance, int yDistance, String predicateText, String objectText) {
