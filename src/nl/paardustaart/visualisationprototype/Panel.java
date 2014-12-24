@@ -1,5 +1,6 @@
 package nl.paardustaart.visualisationprototype;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -40,8 +41,10 @@ public class Panel extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		g2d.setColor(Color.WHITE);
-		g2d.fillRect(0, 0, WIDTH, HEIGHT);
+		g2d.fillRect(0, 0, WIDTH + (WIDTH/100*2), HEIGHT + (HEIGHT/100*2));
+		
 		for(Drawable d : shapes) {
 			d.draw(g2d);
 		}
@@ -50,12 +53,12 @@ public class Panel extends JPanel {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Drawing test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(new Panel());
+		frame.getContentPane().add(new Toolbar(), BorderLayout.NORTH);
+		frame.getContentPane().add(new Panel(), BorderLayout.CENTER);
 		frame.pack();
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		frame.setSize(1285, 748);
 	}
 
 }
