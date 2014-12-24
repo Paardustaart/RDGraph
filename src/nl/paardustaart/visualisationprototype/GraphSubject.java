@@ -32,13 +32,13 @@ public class GraphSubject implements Drawable {
 	}
 	
 	public void addGraphObject(int xDistance, int yDistance, String predicateText, String objectText) {
-		GraphObject currentObject = new GraphObject(x + xDistance, y + yDistance, predicateText, objectText, this);
+		GraphObject currentObject = new GraphObject(getCenter().x + xDistance, getCenter().y + yDistance, predicateText, objectText, this);
 		objects.add(currentObject);
 	}
 	
 	public void addGraphObjects(String[][] objects) {
 		
-		int[][] location = {{0, -200}, {150, -150}, {250, 0}, {150, 150}, {0, 200}, {-150, 150}, {-250, 0}, {-150, -150}};
+		int[][] location = {{0, -200}, {150, -150}, {200, 0}, {150, 150}, {0, 200}, {-150, 150}, {-200, 0}, {-150, -150}};
 		
 		int loc = 0;
 		int multiplier = 8 / objects.length;

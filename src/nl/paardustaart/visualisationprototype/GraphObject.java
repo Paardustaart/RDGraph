@@ -15,8 +15,6 @@ public class GraphObject implements Drawable {
 	private GraphSubject subject;
 	
 	public GraphObject(int x, int y, String predicate, String display, GraphSubject subject) {
-		this.x = x;
-		this.y = y;
 		
 		this.subject = subject;
 		
@@ -28,6 +26,9 @@ public class GraphObject implements Drawable {
 		
 		width = (int)(FontCalculator.getInstance().getWidth(displayText) * widthMultiplier);
 		height = (int)(FontCalculator.getInstance().getHeight(displayText) * heightMultiplier);
+		
+		this.x = x - (width / 2);
+		this.y = y - (height / 2);
 		
 	}
 	
@@ -47,15 +48,16 @@ public class GraphObject implements Drawable {
 		g.drawLine(subject.getCenter().x, subject.getCenter().y, x + width / 2, y + height / 2);
 		
 		g.setColor(Color.WHITE);
-		g.fillRect(getLineCenter().x - ((int)FontCalculator.getInstance().getWidth(predicateText) / 2), getLineCenter().y - (int)FontCalculator.getInstance().getHeight(predicateText) +3, (int)FontCalculator.getInstance().getWidth(predicateText), (int)FontCalculator.getInstance().getHeight(predicateText));
+		g.fillRect(getLineCenter().x - ((int)FontCalculator.getInstance().getWidth(predicateText) / 2), getLineCenter().y - ((int)FontCalculator.getInstance().getHeight(predicateText) / 2), (int)FontCalculator.getInstance().getWidth(predicateText) + 1, (int)FontCalculator.getInstance().getHeight(predicateText));
 		
 		g.setColor(Color.BLACK);
-		g.drawString(predicateText, getLineCenter().x - ((int)FontCalculator.getInstance().getWidth(predicateText) / 2), getLineCenter().y);
+		g.drawString(predicateText, getLineCenter().x - ((int)FontCalculator.getInstance().getWidth(predicateText) / 2), getLineCenter().y + ((int)FontCalculator.getInstance().getHeight(predicateText) / 2) - 2);
 		
 		g.setColor(Color.BLACK);
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.WHITE);
 		g.drawString(displayText, x + (int)(width / 2 - ((FontCalculator.getInstance().getWidth(displayText) / 2))), y + (int)(height / 2 + (FontCalculator.getInstance().getHeight(displayText) / 2)));
+		
 	}
 	
 }
