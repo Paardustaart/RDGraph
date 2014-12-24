@@ -1,6 +1,8 @@
 package nl.paardustaart.rdgraph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -16,7 +18,20 @@ public class Main {
 		
 		ArrayList<Resource> rootResources = ModelMapper.getRootResources(model); // Return the root resources from the given RDF model
 		
-		ModelMapper.printModel(rootResources); // print the RDF model in tree structure starting from the given root resources
+		//ModelMapper.printModel(rootResources); // print the RDF model in tree structure starting from the given root resources
+		
+		HashMap<String, List<String[]>> map = ModelMapper.getSimpleStructuredModel(rootResources);
+		
+		for(String key : map.keySet()) {
+			System.out.println(key);
+			
+			for(String[] collection : map.get(key)) {
+				for(String s : collection) {
+					System.out.println(s);
+				}
+			}
+			
+		}
 		
 	}
 	

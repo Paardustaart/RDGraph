@@ -1,6 +1,8 @@
 package nl.paardustaart.rdgraph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.NodeIterator;
@@ -87,6 +89,37 @@ public class ModelMapper {
 			}
 		}
 		indentation--; // Removes a tab
+	}
+	
+	/**
+	 * Returns a simple representation of the most top level RDF structure
+	 * @param rootList
+	 * @return
+	 */
+	public static HashMap<String, List<String[]>> getSimpleStructuredModel(ArrayList<Resource> rootList) {
+		HashMap<String, List<String[]>> map = new HashMap<String, List<String[]>>();
+		
+		for(Resource res : rootList) {			
+			ArrayList<String[]> currentList = new ArrayList<String[]>();
+			
+			StmtIterator it = res.listProperties();
+			while(it.hasNext()) {
+				String[] currentArray = new String[2];
+				Statement currentStatement = it.nextStatement();
+				Property currentProperty = currentStatement.getPredicate();
+				RDFNode currentNode = currentStatement.getObject();
+				
+				currentArray[0] = trim(currentProperty.toString());			
+				if(currentNode.isLiteral()) {
+					currentArray[1] = currentNode.toString();
+				} else {
+					currentArray[1] = "BLANK";
+				}
+				currentList.add(currentArray);
+			}
+			map.put(res.toString(), currentList);
+		}
+		return map;
 	}
 	
 	
