@@ -91,6 +91,7 @@ public class ModelMapper {
 		indentation--; // Removes a tab
 	}
 	
+	
 	/**
 	 * Returns a simple representation of the most top level RDF structure
 	 * @param rootList
