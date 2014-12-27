@@ -7,16 +7,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import nl.paardustaart.rdgraph.ModelMapper;
-
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.Resource;
 
 
 public class Panel extends JPanel {
@@ -31,23 +25,17 @@ public class Panel extends JPanel {
 	public Panel() {
 		shapes = new ArrayList<Drawable>();
 		
-		//GraphSubject subject = new GraphSubject(WIDTH, HEIGHT, "The Subject");
-		//String[][] predObj = {{"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}, {"Predicate", "Object"}};
-		//subject.addGraphObjects(predObj);
+		GraphSubject subject = new GraphSubject(WIDTH, HEIGHT, "The Subject");
 		
-		Model model = ModelMapper.createTestModel();
-		ArrayList<Resource> rootResources = ModelMapper.getRootResources(model);
-		HashMap<String, List<String[]>> map = ModelMapper.getSimpleStructuredModel(rootResources);
-		
-		GraphSubject subject;
-		
-		for(String key : map.keySet()) {
-			
-			subject = new GraphSubject(WIDTH, HEIGHT, key);
-			subject.addGraphObjects(map.get(key));
-			shapes.add(subject);
-			
+		List<String[]> predObj = new ArrayList<String[]>();
+		String[] arr = {"Predicate", "Object"};
+		for(int i = 0; i <= 7; i++) {
+			predObj.add(arr);
 		}
+		
+		subject.addGraphObjects(predObj);
+		
+		shapes.add(subject);
 	}
 	
 	@Override
