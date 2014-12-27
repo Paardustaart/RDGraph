@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class GraphSubject implements Drawable {
@@ -36,17 +37,17 @@ public class GraphSubject implements Drawable {
 		objects.add(currentObject);
 	}
 	
-	public void addGraphObjects(String[][] objects) {
+	public void addGraphObjects(List<String[]> objects) {
 		
 		int[][] location = {{0, -200}, {150, -150}, {200, 0}, {150, 150}, {0, 200}, {-150, 150}, {-200, 0}, {-150, -150}};
 		
 		int loc = 0;
-		int multiplier = 8 / objects.length;
+		int multiplier = 8 / objects.size();
 		
-		for(int i = 0; i < objects.length; i++) {
+		for(int i = 0; i < objects.size(); i++) {
 			int x = location[loc][0];
 			int y = location[loc][1];
-			this.addGraphObject(x, y, objects[i][0], objects[i][1]);
+			this.addGraphObject(x, y, objects.get(i)[0], objects.get(i)[1]);
 			loc += multiplier;
 		}
 	}

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.NodeIterator;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
@@ -12,6 +13,7 @@ import com.hp.hpl.jena.rdf.model.ResIterator;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.vocabulary.VCARD;
 
 public class ModelMapper {
 	
@@ -121,6 +123,28 @@ public class ModelMapper {
 			map.put(res.toString(), currentList);
 		}
 		return map;
+	}
+	
+	public static Model createTestModel() {
+		String URI = "http://johndoe.nl/john";
+
+		String firstName = "John";
+		String lastName = "Doe";
+		String fullName = firstName + " " + lastName;
+
+		Model model = ModelFactory.createDefaultModel();
+
+		model.createResource(URI)
+				.addProperty(VCARD.EMAIL, "john@email.com")
+				.addProperty(VCARD.Country, "States")
+				.addProperty(VCARD.BDAY, "02/03/92")
+				.addProperty(VCARD.ADR, "DoStr 43")
+				.addProperty(VCARD.Family, "Yes")
+				.addProperty(VCARD.Suffix, "The dude")
+				.addProperty(VCARD.EMAIL, "johndoe@email.com")
+				.addProperty(VCARD.FN, fullName);
+		
+		return model;
 	}
 	
 	
